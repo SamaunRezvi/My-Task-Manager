@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personal Task Manager</title>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo-circle" aria-hidden="true"></div>
+        <div>
+          <h1 id="appTitle">My Task Manager</h1>
+          <p class="muted" id="greetingSub">Organize, Focus, Finish — Beautifully.</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="toggle-wrap">
+          <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+  
+    <section class="hero card">
+      <div class="hero-left">
+        <h2 class="hero-title">Focus on what matters.</h2>
+        <p class="hero-sub">A minimal, stylish task manager — responsive and fast.</p>
+
+        <div class="quick-actions">
+          <button id="addQuickBtn" class="btn-primary">Add New Task</button>
+          <button id="showBirthTasks" class="btn-ghost">Show Birth-Month Tasks</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="progress-circle" aria-hidden="true">
+        
+          <svg viewBox="0 0 120 120" class="progress-svg">
+            <circle cx="60" cy="60" r="52" class="progress-bg"></circle>
+            <circle cx="60" cy="60" r="52" class="progress-fg" id="progressCircle"></circle>
+            <text x="50%" y="50%" text-anchor="middle" dy="7" id="progressLabel">0%</text>
+          </svg>
+        </div>
+        <div class="stats">
+          <div><strong id="totalTasks">0</strong><span class="muted">Total</span></div>
+          <div><strong id="completedTasks">0</strong><span class="muted">Completed</span></div>
+          <div><strong id="dueTodayCount">0</strong><span class="muted">Due Today</span></div>
+        </div>
+      </div>
+    </section>
+
+   
+    <section id="formSection" class="card form-card">
+      <h3>New Task</h3>
+      <form id="taskForm" class="task-form" novalidate>
+        <div class="row">
+          <label>
+            Title <input id="title" name="title" required placeholder="Task title" />
+          </label>
+          <label>
+            Category <input id="category" name="category" placeholder="Work, Personal..." />
+          </label>
+        </div>
+
+        <label>
+          Description
+          <textarea id="description" name="description" rows="3" placeholder="Describe the task..."></textarea>
+        </label>
+
+        <div class="row">
+        
+          <label>
+            Due date
+            <input id="dueDate" type="date" />
+          </label>
+
+          <label>
+            Priority
+            <select id="priority">
+              <option value="3">3 — Medium (default)</option>
+              <option value="1">1 — Low</option>
+              <option value="2">2 — Below Avg</option>
+              <option value="4">4 — High</option>
+              <option value="5">5 — Urgent</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Create Task</button>
+          <button type="button" id="clearBtn" class="btn-ghost">Clear</button>
+        </div>
+      </form>
+    </section>
+
+   
+    <aside class="card filter-card">
+      <div class="filter-row">
+        <input id="search" placeholder="Search tasks..." />
+        <select id="sortBy" title="Sort tasks">
+          <option value="newest">Newest</option>
+          <option value="due">Due Date</option>
+          <option value="priority">Priority</option>
+          <option value="category">Category</option>
+        </select>
+      </div>
+
+      <div class="chips">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="pending">Pending</button>
+        <button class="chip" data-filter="completed">Completed</button>
+        <button class="chip" data-filter="today">Due Today</button>
+      </div>
+
+      <hr />
+
+      <div class="small-note muted">
+        Tasks saved locally. Due-date calendar uses the browser's native picker for best UX across devices.
+      </div>
+    </aside>
+
+  
+    <section id="tasksSection" class="card tasks-card">
+      <h3>Your Tasks</h3>
+      <div id="tasksList" class="tasks-list" aria-live="polite">
+      
+      </div>
+      <div id="emptyNote" class="empty-note">No tasks yet — add your first task above.</div>
+    </section>
+
+
+    <section class="card chart-card">
+      <h3>Progress Overview</h3>
+      <canvas id="donutChart" width="300" height="300" aria-label="Tasks completion chart"></canvas>
+      <div class="chart-legend">
+        <span class="legend-dot done"></span> Completed
+        <span class="legend-dot pending"></span> Pending
+        <span class="legend-dot overdue"></span> Overdue
+      </div>
+    </section>
+  </main>
+
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small class="muted">&copy; 2025 • Personal Task Manager • Built by SR </small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
